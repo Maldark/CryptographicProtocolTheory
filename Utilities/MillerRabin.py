@@ -19,9 +19,9 @@ def PrimalityTest(n):
     if b % n == 1:
         return True
 
-    for i in range(0, k-1):
-        if b % n == -1:
+    for i in range(0, k):
+        if b % n == (-1 % n):
             return True
-        b = (b * b) % n
+        b = pow(b, 2, n)
     
     return False
