@@ -11,7 +11,7 @@ def miller_rabin(n):
     m = n - 1
     while m & 1 == 0:
         k += 1
-        m = m >> 1 # Divide by two
+        m = m // 2
 
     a = random.randint(1, n-2)
     b = pow(a, m, n)
@@ -33,16 +33,27 @@ def primality_test(k, n):
 
     return True
 
-def egcd(a, b):
-    if a == 0:
-        return (b, 0, 1)
-    else:
-        g, y, x = egcd(b % a, a)
-        return (g, x - (b // a) * y, y)
+def modinv(b, a):
+    a0 = a
+    b0 = b
+    t0 = 0
+    t = 1
+    # q = math.floor(a0 / b0)
+    # r = a0 - q * b0
+    q, r = divmod(a0, b0)
+    while r > 0:
+        temp = (t0 - q * t) % a
+        t0 = t
+        t = temp
+        a0 = b0
+        b0 = r
+        q, r = divmod(a0, b0)
 
-def modinv(a, m):
-    g, x, y = egcd(a, m)
-    if g != 1:
+    if b0 != 1:
         raise Exception('modular inverse does not exist')
     else:
-        return x % m
+        return t
+
+
+def square_and_multiply(base, exponent, modulus):
+    pass

@@ -10,7 +10,7 @@ def __generate_k_bit_number(k):
     # Generating prime in range [sqrt(2) * 2^{k/2 - 1} , 2^{k/2}] supposedly
     # ensures a K-bit key when multiplying primes together
     # https://crypto.stackexchange.com/questions/19263/generation-of-n-bit-prime-numbers-what-is-the-actual-range
-    return random.randint(math.sqrt(2) * pow(2, math.floor(k/2-1)), pow(2, math.floor(k/2)))
+    return random.randint(math.floor(math.sqrt(2) * pow(2, k // 2 - 1)), pow(2, k // 2))
 
 def __generate_k_bit_prime(k):
     while True:
@@ -31,8 +31,8 @@ def keygen(k):
             break
     d = modinv(e, phi)
 
-    pk = (n, e)
-    sk = (p, q, d)
+    pk = {'n': n, 'e': e}
+    sk = {'p': p, 'q': q, 'd': d}
 
     return pk, sk
 
