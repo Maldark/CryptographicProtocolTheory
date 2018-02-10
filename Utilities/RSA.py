@@ -37,7 +37,16 @@ def keygen(k):
     return pk, sk
 
 def encrypt(pk, x):
-    pass
+    n = pk['n']
+    e = pk['e']
+
+    return pow(x, e, n)
 
 def decrypt(sk, y):
-    pass
+    p = sk['p']
+    q = sk['q']
+    d = sk['d']
+
+    n = p*q
+    
+    return pow(y, d, n)
